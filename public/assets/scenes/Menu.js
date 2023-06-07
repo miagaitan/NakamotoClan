@@ -12,7 +12,8 @@ preload () {
 } 
 
 create () {
-this.add.image(400, 300, "Menu").setScale(1)
+this.add.image(400, 300, "Menu").setScale(1);
+
 }
 }
 
