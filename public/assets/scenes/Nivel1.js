@@ -1,3 +1,6 @@
+import { ENEMIES } from "../scripts/utils.js"
+const { BARREL, GHOST, GHOST2, MINI, PENGUIN } = ENEMIES
+
 export default class Nivel1 extends Phaser.Scene {
     constructor() {
 
@@ -6,12 +9,23 @@ export default class Nivel1 extends Phaser.Scene {
 
 init () {
     this.score = 0
-
-}
+    this.enemiesRecolected = {
+      [BARREL]: {count: 0, score: 10},
+      [GHOST]: {count: 0, score: 20},
+      [GHOST2]: {count: 0, score: 30},
+      [MINI]: {count: 0, score: 40},
+      [PENGUIN]: {count: 0, score: 50}
+    };
+    console.log(this.enemiesRecolected);
+  }
 preload () {
-    this.load.tilemapTiledJSON("map", "./public/tilemaps/nivel1.json");
-    this.load.image("tilesFondo", "./public/assets/images/fondo.png");
-    this.load.image("tilesPlataforma", "./public/assets/images/plataforma.png");
+    this.load.image("Fondo", "./public/assets/images/fondo.png");
+    this.load.image("Plataforma", "./public/assets/images/plataforma.png");
+    this.load.image(BARREL, "./public/assets/images/Barrel.png");
+    this.load.image(GHOST, "./public/assets/images/Ghost.png");
+    this.load.image(GHOST2, "./public/assets/images/Ghost2.png");
+    this.load.image(MINI, "./public/assets/images/Mini.png");
+    this.load.image(PENGUIN, "./public/assets/images/Penguin.png");
     this.load.spritesheet("jugador", "./public/assets/images/spritesheet.png", {
       frameWidth: 1632,
       frameHeight: 2262,
@@ -20,6 +34,10 @@ preload () {
 create () {
     this.add.image(400, 300, "Fondo").setScale(1);
     this.add.image(400, 300, "Plataforma").setScale(1);
+    this.add.sprite(400, 300, "jugador").setScale(0.2)
+    
+  this.enemiesGroup = this.physics.add.group();
+  let plataforma = this.physics.add.staticGroup();
 
 this.anims.create({
     key: "left",
@@ -52,26 +70,19 @@ this.anims.create({
     frames: this.anims.generateFrameNumbers("jugador", { frame: 2}),
     frameRate: 20
   });
-  const map = this.make.tilemap({ key: "map" });
-    const capaFondo = map.addTilesetImage("fondo", "tilesFondo");
-    const capaPlataformas = map.addTilesetImage("plataforma", "tilesPlataforma");
-    const fondoLayer = map.createLayer("fondo", capaFondo, 0, 0);
-    const plataformaLayer = map.createLayer(
-      "plataformas",
-      capaPlataformas,
-      0,
-      0
-    );
-    const objectosLayer = map.getObjectLayer("objetos");
-    plataformaLayer.setCollisionByProperty({ colision: true });
-    let spawnPoint = map.findObject("objetos", (obj) => obj.name === "Zhao");
-    console.log(spawnPoint);
-    this.jugador = this.physics.add.sprite(spawnPoint.x, spawnPoint.y, "Jugador");
-    this.jugador.setBounce(0.1);
-    this.jugador.setCollideWorldBounds(true);
-    this.jugador.setScale(1);
+
+  this.time.addEvent({
+    delay: 3000,
+    callback: this.addEnemy,
+    callbackScope: this,
+    loop: true,
+  });
 
     this.cursors = this.input.keyboard.createCursorKeys();
+
+    this.physics.add.collider(this.player, plataforma);
+    this.physics.add.collider(this.player, this.enemiesGroup);
+    this.physics.add.collider(plataforma, this.enemiesGroup);
 
 this.score = 0;
     this.scoreText = this.add.text(700, 20,  " " + this.score, {
@@ -80,4 +91,38 @@ this.score = 0;
       fill: "#ffffff",
     });
   }
+
+  update () {
+
+  }
+
+  addEnemies () {
+    const randomEnemies = Phaser.Math.RND.pick([
+     BARREL, 
+     GHOST,
+     GHOST2,
+     MINI,
+     PENGUIN,
+    ]);
+
+    
+    const randomY = Phaser.Math.RND.between(0, 800);
+
+    //add shape to screen
+    this.enemiesGroup.create(randomY, 0, randomEnemies)
+    .setCircle(32, 0, 0)
+    .setBounce(0.8)
+    .setData(POINTS_PERCENTAGE, POINTS_PERCENTAGE_VALUE_START);
+    console.log("Enemy is added", randomY, randomEnemies);
+  }
+  collectEnemies(jugador, enemy) {
+    enemy.disableBody(true,true);
+
+    const enemyName = enemy.texture.key;
+    const percentage = enemy.getData(POINTS_PERCENTAGE);
+    const scoreNow = this.enemiesRecolected[enemyName].score * percentage;
+    this.score += scoreNow;
+    this.scoreText.setText(`Score: ${this.score.toString()}`);
+    this.enemyRecolected[enemyName].count++;
+}
 }
