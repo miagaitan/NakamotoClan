@@ -13,7 +13,7 @@ export default class Creditos extends Phaser.Scene {
     create () {
       this.add.image(400, 300, "PCreditos").setScale(1);
       this.add.image(400, 550, "Menu").setScale(1).setInteractive()
-      .on("pointerdown", () => this.scene.start("Menu"));;
+      .on("pointerdown", () => this.scene.start("Menu"));
 }
 }
 
