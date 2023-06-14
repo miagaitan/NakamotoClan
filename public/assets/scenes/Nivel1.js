@@ -34,7 +34,9 @@ preload () {
 create () {
     this.add.image(400, 300, "Fondo").setScale(1);
     this.add.image(400, 300, "Plataforma").setScale(1);
-    this.add.sprite(400, 300, "jugador").setScale(0.2)
+    this.player = this.physics.add.sprite(400, 350, "jugador");
+    this.player.setCollideWorldBounds(true);
+    this.player.setScale(0.2);
     
   this.enemiesGroup = this.physics.add.group();
   let plataforma = this.physics.add.staticGroup();
@@ -82,8 +84,8 @@ this.anims.create({
 
     this.physics.add.collider(this.player, plataforma);
     this.physics.add.collider(this.player, this.enemiesGroup);
-    this.physics.add.collider(plataforma, this.enemiesGroup);
-
+    this.physics.add.collider(this.enemiesGroup, plataforma);
+    
 this.score = 0;
     this.scoreText = this.add.text(700, 20,  " " + this.score, {
       fontSize: "32px",
@@ -96,7 +98,7 @@ this.score = 0;
 
   }
 
-  addEnemies () {
+  addEnemy () {
     const randomEnemies = Phaser.Math.RND.pick([
      BARREL, 
      GHOST,
@@ -106,14 +108,13 @@ this.score = 0;
     ]);
 
     
-    const randomY = Phaser.Math.RND.between(0, 800);
+    const randomX = Phaser.Math.RND.between(0, 800);
 
     //add shape to screen
-    this.enemiesGroup.create(randomY, 0, randomEnemies)
-    .setCircle(32, 0, 0)
-    .setBounce(0.8)
-    .setData(POINTS_PERCENTAGE, POINTS_PERCENTAGE_VALUE_START);
-    console.log("Enemy is added", randomY, randomEnemies);
+    this.enemiesGroup.create(randomX, 0, randomEnemies)
+    .setBounce(0.2)
+    .setScale(0.3)
+    console.log("Enemy is added", randomX, randomEnemies);
   }
   collectEnemies(jugador, enemy) {
     enemy.disableBody(true,true);
