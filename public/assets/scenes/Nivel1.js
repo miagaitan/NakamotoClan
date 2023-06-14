@@ -116,8 +116,8 @@ this.score = 0;
     .setScale(0.3)
     console.log("Enemy is added", randomX, randomEnemies);
   }
-  collectEnemies(jugador, enemy) {
-    enemy.disableBody(true,true);
+  collectEnemies(jugador, enemies) {
+    enemies.disableBody(true,true);
 
     const enemyName = enemy.texture.key;
     const percentage = enemy.getData(POINTS_PERCENTAGE);
