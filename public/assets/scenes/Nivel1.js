@@ -32,11 +32,11 @@ preload () {
     });
   }
 create () {
-    this.add.image(400, 300, "Fondo").setScale(1);
-    this.add.image(400, 300, "Plataforma").setScale(1);
+    this.add.image(800, 600, "Fondo").setScale(2);
+    this.add.image(800, 600, "Plataforma").setScale(2);
     this.player = this.physics.add.sprite(400, 350, "jugador");
     this.player.setCollideWorldBounds(true);
-    this.player.setScale(0.2);
+    this.player.setScale(0.3);
     
   this.enemiesGroup = this.physics.add.group();
   let plataforma = this.physics.add.staticGroup();
@@ -113,7 +113,7 @@ this.score = 0;
     //add shape to screen
     this.enemiesGroup.create(randomX, 0, randomEnemies)
     .setBounce(0.2)
-    .setScale(0.3)
+    .setScale(0.6)
     console.log("Enemy is added", randomX, randomEnemies);
   }
   collectEnemies(jugador, enemies) {

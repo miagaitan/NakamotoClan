@@ -12,10 +12,10 @@ export default class Niveles extends Phaser.Scene {
       this.load.image("Boton1", "./public/assets/images/Boton1.png")
     }
     create () {
-      this.add.image(400, 300, "Niveles").setScale(1);
-      this.add.image(400, 300, "Boton1").setScale(0.75).setInteractive()
+      this.add.image(800, 600, "Niveles").setScale(2);
+      this.add.image(800, 600, "Boton1").setScale(1.5).setInteractive()
       .on("pointerdown", () => this.scene.start("Nivel1"));
-      this.add.image(400, 550, "Menu").setScale(1).setInteractive()
+      this.add.image(800, 1100, "Menu").setScale(1).setInteractive()
       .on("pointerdown", () => this.scene.start("Menu"));
 }
 }

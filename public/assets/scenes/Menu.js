@@ -15,12 +15,12 @@ preload () {
 } 
 
 create () {
-this.add.image(400, 300, "Inicio").setScale(1);
-this.add.image(240, 380, "Jugar").setScale(1).setInteractive()
+this.add.image(800, 600, "Inicio").setScale(2);
+this.add.image(480, 760, "Jugar").setScale(2).setInteractive()
 .on("pointerdown", () => this.scene.start("Niveles"));
-this.add.image(245, 440, "Controles").setScale(1).setInteractive()
+this.add.image(490, 880, "Controles").setScale(2).setInteractive()
 .on("pointerdown", () => this.scene.start("Controles"));
-this.add.image(240, 500, "Creditos").setScale(1).setInteractive()
+this.add.image(480, 1000, "Creditos").setScale(2).setInteractive()
 .on("pointerdown", () => this.scene.start("Creditos"));;
 
 }
