@@ -26,9 +26,9 @@ preload () {
     this.load.image(GHOST2, "./public/assets/images/Ghost2.png");
     this.load.image(MINI, "./public/assets/images/Mini.png");
     this.load.image(PENGUIN, "./public/assets/images/Penguin.png");
-    this.load.spritesheet("jugador", "./public/assets/images/spritesheet.png", {
-      frameWidth: 1632,
-      frameHeight: 2262,
+    this.load.spritesheet("jugador", "./public/assets/images/zhaosprite.png", {
+      frameWidth: 998,
+      frameHeight: 1842,
     });
   }
 create () {
@@ -43,20 +43,20 @@ create () {
 
 this.anims.create({
     key: "left",
-    frames: this.anims.generateFrameNumbers("jugador", { start: 1, end: 0 }),
+    frames: this.anims.generateFrameNumbers("jugador", { start: 3, end: 0 }),
     frameRate: 10,
     repeat: -1,
   });
 
   this.anims.create({
     key: "up",
-    frames: [{ key: "jugador", frame: 5 }],
+    frames: [{ key: "jugador", frame: 4 }],
     frameRate: 20,
   });
 
   this.anims.create({
     key: "right",
-    frames: this.anims.generateFrameNumbers("jugador", { start: 2, end: 3 }),
+    frames: this.anims.generateFrameNumbers("jugador", { start: 5, end: 8 }),
     frameRate: 10,
     repeat: -1,
   });
@@ -69,7 +69,7 @@ this.anims.create({
 
   this.anims.create({
     key: "turn",
-    frames: this.anims.generateFrameNumbers("jugador", { frame: 2}),
+    frames: this.anims.generateFrameNumbers("jugador", { frame: 4}),
     frameRate: 20
   });
 
@@ -95,6 +95,24 @@ this.score = 0;
   }
 
   update () {
+    if (this.cursors.left.isDown) {
+      this.player.setVelocityX(-160);
+      this.player.anims.play("left", true);
+    }
+    
+    else if (this.cursors.right.isDown) {
+      this.player.setVelocityX(160);
+      this.player.anims.play("right", true);
+    }
+    
+    else {
+      this.player.setVelocityX(0);
+      this.player.anims.play("turn");
+    }
+
+    if (this.cursors.up.isDown && this.player.body.blocked.down) {
+      this.player.setVelocityY(-330);
+    }
 
   }
 
