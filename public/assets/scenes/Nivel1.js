@@ -8,6 +8,7 @@ export default class Nivel1 extends Phaser.Scene {
     }
 
 init () {
+    this.life= 100
     this.score = 0
     this.enemiesRecolected = {
       [BARREL]: {count: 0, score: 10},
@@ -26,25 +27,28 @@ preload () {
     this.load.image(GHOST2, "./public/assets/images/Ghost2.png");
     this.load.image(MINI, "./public/assets/images/Mini.png");
     this.load.image(PENGUIN, "./public/assets/images/Penguin.png");
+    this.load.image("corazon", "./public/assets/images/corazon.png");
     this.load.spritesheet("jugador", "./public/assets/images/zhaosprite.png", {
-      frameWidth: 998,
-      frameHeight: 1842,
+      frameWidth: 999,
+      frameHeight: 1843,
     });
   }
 create () {
     this.add.image(800, 600, "Fondo").setScale(2);
-    this.add.image(800, 600, "Plataforma").setScale(2);
     this.player = this.physics.add.sprite(400, 350, "jugador");
     this.player.setCollideWorldBounds(true);
-    this.player.setScale(0.3);
+    this.player.setScale(0.2);
     
+  this.add.image(1380, 43, "corazon")
+
   this.enemiesGroup = this.physics.add.group();
-  let plataforma = this.physics.add.staticGroup();
+  let platforms = this.physics.add.staticGroup();
+  platforms.create(800, 1200, "Plataforma").setScale(2).refreshBody();
 
 this.anims.create({
     key: "left",
     frames: this.anims.generateFrameNumbers("jugador", { start: 3, end: 0 }),
-    frameRate: 10,
+    frameRate: 5,
     repeat: -1,
   });
 
@@ -57,7 +61,7 @@ this.anims.create({
   this.anims.create({
     key: "right",
     frames: this.anims.generateFrameNumbers("jugador", { start: 5, end: 8 }),
-    frameRate: 10,
+    frameRate: 5,
     repeat: -1,
   });
 
@@ -74,34 +78,49 @@ this.anims.create({
   });
 
   this.time.addEvent({
-    delay: 3000,
+    delay: 5000,
     callback: this.addEnemy,
     callbackScope: this,
     loop: true,
   });
 
-    this.cursors = this.input.keyboard.createCursorKeys();
+  this.cursors = this.input.keyboard.createCursorKeys();
 
-    this.physics.add.collider(this.player, plataforma);
-    this.physics.add.collider(this.player, this.enemiesGroup);
-    this.physics.add.collider(this.enemiesGroup, plataforma);
+  this.physics.add.collider(this.player, platforms);
+  this.physics.add.collider(this.player, this.enemiesGroup);
+  this.physics.add.collider(platforms, this.enemiesGroup);
+
+  this.physics.add.overlap(
+    this.player,
+    this.enemiesGroup,
+    this.collectEnemies,
+    null,
+    this
+  );
     
 this.score = 0;
-    this.scoreText = this.add.text(700, 20,  " " + this.score, {
-      fontSize: "32px",
+    this.scoreText = this.add.text(100, 20,  "Puntos: " + this.score, {
+      fontSize: "45px",
       fontStyle: "bold",
+      fill: "#ffffff",
+    });
+  
+    this.life = 100;
+    this.lifeText = this.add.text(1400, 20, " " + this.life, {
+      fontSize: "45px",
+      fontStyle: "bold", 
       fill: "#ffffff",
     });
   }
 
   update () {
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-160);
+      this.player.setVelocityX(-200);
       this.player.anims.play("left", true);
     }
     
     else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(160);
+      this.player.setVelocityX(200);
       this.player.anims.play("right", true);
     }
     
@@ -110,8 +129,8 @@ this.score = 0;
       this.player.anims.play("turn");
     }
 
-    if (this.cursors.up.isDown && this.player.body.blocked.down) {
-      this.player.setVelocityY(-330);
+    if (this.cursors.up.isDown) {
+      this.player.anims.play("up")
     }
 
   }
@@ -134,14 +153,23 @@ this.score = 0;
     .setScale(0.6)
     console.log("Enemy is added", randomX, randomEnemies);
   }
-  collectEnemies(jugador, enemies) {
+  collectEnemies(player, enemies, life) {
     enemies.disableBody(true,true);
+    this.life = this.life - 25 ; 
+    this.lifeText.setText(` : ${this.life.toString()}`);
+    
+  }
+  onSecond(){
+this.lifeText.setText(this.life);
+if (this.life <= 0) {
+this.scene.start("GameOver");
+}
+}
+  }
+    // const enemyName = enemy.texture.key;
+    // const percentage = enemy.getData(POINTS_PERCENTAGE);
+    // const scoreNow = this.enemiesRecolected[enemyName].score * percentage;
+    // this.score += scoreNow;
+    // this.scoreText.setText(`Score: ${this.score.toString()}`);
+    // this.enemyRecolected[enemyName].count++;
 
-    const enemyName = enemy.texture.key;
-    const percentage = enemy.getData(POINTS_PERCENTAGE);
-    const scoreNow = this.enemiesRecolected[enemyName].score * percentage;
-    this.score += scoreNow;
-    this.scoreText.setText(`Score: ${this.score.toString()}`);
-    this.enemyRecolected[enemyName].count++;
-}
-}
