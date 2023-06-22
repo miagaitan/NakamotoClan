@@ -32,6 +32,14 @@ preload () {
       frameWidth: 999,
       frameHeight: 1843,
     });
+    this.load.spritesheet("jugadorup", "./public/assets/images/spriteup.png", {
+      frameWidth: 2094,
+      frameHeight: 1741,
+    });
+    this.load.spritesheet("jugadordown", "./public/assets/images/spritedown.png", {
+      frameWidth: 919,
+      frameHeight: 1936,
+    });
   }
 create () {
     this.add.image(800, 600, "Fondo").setScale(2);
@@ -46,6 +54,12 @@ create () {
   platforms.create(800, 1200, "Plataforma").setScale(2).refreshBody();
 
 this.anims.create({
+    key: "turn",
+    frames: this.anims.generateFrameNumbers("jugador", { frame: 4}),
+    frameRate: 20
+  });
+
+this.anims.create({
     key: "left",
     frames: this.anims.generateFrameNumbers("jugador", { start: 3, end: 0 }),
     frameRate: 5,
@@ -54,7 +68,7 @@ this.anims.create({
 
   this.anims.create({
     key: "up",
-    frames: [{ key: "jugador", frame: 4 }],
+    frames: [{ key: "jugadorup", frame: 0 }],
     frameRate: 20,
   });
 
@@ -67,14 +81,8 @@ this.anims.create({
 
   this.anims.create({
     key: "down",
-    frames: this.anims.generateFrameNumbers("jugador", { frame: 4 }),
+    frames: [{ key: "jugadordown", frame: 0 }],
     frameRate: 20,
-  });
-
-  this.anims.create({
-    key: "turn",
-    frames: this.anims.generateFrameNumbers("jugador", { frame: 4}),
-    frameRate: 20
   });
 
   this.time.addEvent({
@@ -106,7 +114,7 @@ this.score = 0;
     });
   
     this.life = 100;
-    this.lifeText = this.add.text(1400, 20, " " + this.life, {
+    this.lifeText = this.add.text(1440, 20, " " + this.life, {
       fontSize: "45px",
       fontStyle: "bold", 
       fill: "#ffffff",
@@ -129,10 +137,12 @@ this.score = 0;
       this.player.anims.play("turn");
     }
 
-    if (this.cursors.up.isDown) {
+    if (this.cursors.up.isDown && this.player.body.touching.down) {
       this.player.anims.play("up")
     }
-
+    if (this.cursors.down.isDown) {
+      this.player.anims.play("down");
+    }
   }
 
   addEnemy () {
@@ -154,22 +164,27 @@ this.score = 0;
     console.log("Enemy is added", randomX, randomEnemies);
   }
   collectEnemies(player, enemies, life) {
+    if (this.cursors.up.isDown) {
     enemies.disableBody(true,true);
-    this.life = this.life - 25 ; 
+
+    const enemyName = enemies.texture.key
+    const scoreNow = this.enemiesRecolected[enemyName].score;
+    this.score += scoreNow;
+    this.scoreText.setText(`Score: ${this.score.toString()}`); }
+    else {
+      enemies.disableBody(true, true); 
+      this.life = this.life - 25 ; 
     this.lifeText.setText(` : ${this.life.toString()}`);
-    
-  }
-  onSecond(){
-this.lifeText.setText(this.life);
+    }
+
+    this.lifeText.setText(this.life);
 if (this.life <= 0) {
 this.scene.start("GameOver");
 }
+    
+  }
+  onSecond(){
+
 }
   }
-    // const enemyName = enemy.texture.key;
-    // const percentage = enemy.getData(POINTS_PERCENTAGE);
-    // const scoreNow = this.enemiesRecolected[enemyName].score * percentage;
-    // this.score += scoreNow;
-    // this.scoreText.setText(`Score: ${this.score.toString()}`);
-    // this.enemyRecolected[enemyName].count++;
 
