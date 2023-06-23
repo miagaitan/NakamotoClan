@@ -123,12 +123,12 @@ this.score = 0;
 
   update () {
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-200);
+      this.player.setVelocityX(-220);
       this.player.anims.play("left", true);
     }
     
     else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(200);
+      this.player.setVelocityX(220);
       this.player.anims.play("right", true);
     }
     
