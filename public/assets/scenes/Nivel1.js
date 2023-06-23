@@ -137,7 +137,7 @@ this.score = 0;
       this.player.anims.play("turn");
     }
 
-    if (this.cursors.up.isDown && this.player.body.touching.down) {
+    if (this.cursors.up.isDown) {
       this.player.anims.play("up")
     }
     if (this.cursors.down.isDown) {
@@ -155,11 +155,11 @@ this.score = 0;
     ]);
 
     
-    const randomX = Phaser.Math.RND.between(0, 800);
+    const randomX = Phaser.Math.RND.between(0, 1600);
 
     //add shape to screen
     this.enemiesGroup.create(randomX, 0, randomEnemies)
-    .setBounce(0.2)
+    .setBounce(0)
     .setScale(0.6)
     console.log("Enemy is added", randomX, randomEnemies);
   }
