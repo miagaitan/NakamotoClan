@@ -183,7 +183,7 @@ this.score = 0;
     const enemyName = enemies.texture.key
     const scoreNow = this.enemiesRecolected[enemyName].score;
     this.score += scoreNow;
-    this.scoreText.setText(`Score: ${this.score.toString()}`); }
+    this.scoreText.setText(`Puntos:  ${this.score.toString()}`); }
     else {
       enemies.disableBody(true, true); 
       this.life = this.life - 25 ; 
@@ -193,6 +193,11 @@ this.score = 0;
     this.lifeText.setText(this.life);
 if (this.life <= 0) {
 this.scene.start("GameOver");
+}
+
+this.scoreText.setText(this.score)
+if (this.score >=50) {
+  this.scene.start("Victoria");
 }
 
 }
