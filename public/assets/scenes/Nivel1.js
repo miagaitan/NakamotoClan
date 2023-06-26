@@ -51,7 +51,7 @@ create () {
 
   this.enemiesGroup = this.physics.add.group();
   let platforms = this.physics.add.staticGroup();
-  platforms.create(800, 1200, "Plataforma").setScale(2).refreshBody();
+  platforms.create(800, 1275, "Plataforma").setScale(2).refreshBody();
 
 this.anims.create({
     key: "turn",
@@ -105,6 +105,14 @@ this.anims.create({
     null,
     this
   );
+
+  this.physics.add.collider(
+    this.enemiesGroup,
+    this.platforms,
+    this.deleteEnemies, 
+    null,
+    this
+    );
     
 this.score = 0;
     this.scoreText = this.add.text(100, 20,  "Puntos: " + this.score, {
@@ -119,6 +127,7 @@ this.score = 0;
       fontStyle: "bold", 
       fill: "#ffffff",
     });
+    
   }
 
   update () {
@@ -138,7 +147,7 @@ this.score = 0;
     }
 
     if (this.cursors.up.isDown) {
-      this.player.anims.play("up")
+      this.player.anims.play("up");
     }
     if (this.cursors.down.isDown) {
       this.player.anims.play("down");
@@ -163,6 +172,10 @@ this.score = 0;
     .setScale(0.6)
     console.log("Enemy is added", randomX, randomEnemies);
   }
+  deleteEnemies (platforms, enemies) {
+    enemies.disableBody(true, true);
+    
+      }
   collectEnemies(player, enemies, life) {
     if (this.cursors.up.isDown) {
     enemies.disableBody(true,true);
@@ -181,10 +194,9 @@ this.score = 0;
 if (this.life <= 0) {
 this.scene.start("GameOver");
 }
-    
-  }
-  onSecond(){
 
 }
-  }
+
+
+}
 
