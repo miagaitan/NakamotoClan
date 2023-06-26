@@ -28,6 +28,7 @@ preload () {
     this.load.image(MINI, "./public/assets/images/Mini.png");
     this.load.image(PENGUIN, "./public/assets/images/Penguin.png");
     this.load.image("corazon", "./public/assets/images/corazon.png");
+    this.load.image("yen", "./public/assets/images/yen.png");
     this.load.spritesheet("jugador", "./public/assets/images/zhaosprite.png", {
       frameWidth: 999,
       frameHeight: 1843,
@@ -48,6 +49,7 @@ create () {
     this.player.setScale(0.2);
     
   this.add.image(1380, 43, "corazon")
+  this.add.image(100, 43, "yen")
 
   this.enemiesGroup = this.physics.add.group();
   let platforms = this.physics.add.staticGroup();
@@ -96,7 +98,6 @@ this.anims.create({
 
   this.physics.add.collider(this.player, platforms);
   this.physics.add.collider(this.player, this.enemiesGroup);
-  this.physics.add.collider(platforms, this.enemiesGroup);
 
   this.physics.add.overlap(
     this.player,
@@ -105,17 +106,9 @@ this.anims.create({
     null,
     this
   );
-
-  this.physics.add.collider(
-    this.enemiesGroup,
-    this.platforms,
-    this.deleteEnemies, 
-    null,
-    this
-    );
     
 this.score = 0;
-    this.scoreText = this.add.text(100, 20,  "Puntos: " + this.score, {
+    this.scoreText = this.add.text(150, 20,  " " + this.score, {
       fontSize: "45px",
       fontStyle: "bold",
       fill: "#ffffff",
@@ -183,7 +176,7 @@ this.score = 0;
     const enemyName = enemies.texture.key
     const scoreNow = this.enemiesRecolected[enemyName].score;
     this.score += scoreNow;
-    this.scoreText.setText(`Puntos:  ${this.score.toString()}`); }
+    this.scoreText.setText(` : ${this.score.toString()}`); }
     else {
       enemies.disableBody(true, true); 
       this.life = this.life - 25 ; 
@@ -196,7 +189,7 @@ this.scene.start("GameOver");
 }
 
 this.scoreText.setText(this.score)
-if (this.score >=50) {
+if (this.score >=300) {
   this.scene.start("Victoria");
 }
 
