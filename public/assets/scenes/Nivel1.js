@@ -44,16 +44,16 @@ preload () {
   }
 create () {
     this.add.image(800, 600, "Fondo").setScale(2);
-    this.player = this.physics.add.sprite(400, 350, "jugador");
+    this.player = this.physics.add.sprite(400, 350, "jugador")( {frame: 4});
     this.player.setCollideWorldBounds(true);
     this.player.setScale(0.2);
     
-  this.add.image(1380, 43, "corazon")
-  this.add.image(100, 43, "yen")
+  this.add.image(1390, 63, "corazon")
+  this.add.image(120, 63, "yen")
 
   this.enemiesGroup = this.physics.add.group();
   let platforms = this.physics.add.staticGroup();
-  platforms.create(800, 1275, "Plataforma").setScale(2).refreshBody();
+  platforms.create(800, 1225, "Plataforma").setScale(2).refreshBody();
 
 this.anims.create({
     key: "turn",
@@ -108,15 +108,15 @@ this.anims.create({
   );
     
 this.score = 0;
-    this.scoreText = this.add.text(150, 20,  " " + this.score, {
-      fontSize: "45px",
+    this.scoreText = this.add.text(150, 40,  " " + this.score, {
+      fontSize: "50px",
       fontStyle: "bold",
       fill: "#ffffff",
     });
   
     this.life = 100;
-    this.lifeText = this.add.text(1440, 20, " " + this.life, {
-      fontSize: "45px",
+    this.lifeText = this.add.text(1440, 40, " " + this.life, {
+      fontSize: "50px",
       fontStyle: "bold", 
       fill: "#ffffff",
     });
