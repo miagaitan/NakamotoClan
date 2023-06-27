@@ -44,7 +44,7 @@ preload () {
   }
 create () {
     this.add.image(800, 600, "Fondo").setScale(2);
-    this.player = this.physics.add.sprite(400, 350, "jugador")( {frame: 4});
+    this.player = this.physics.add.sprite(400, 350, "jugador");
     this.player.setCollideWorldBounds(true);
     this.player.setScale(0.2);
     
