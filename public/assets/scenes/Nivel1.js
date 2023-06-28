@@ -53,11 +53,11 @@ create () {
 
   this.enemiesGroup = this.physics.add.group();
   let platforms = this.physics.add.staticGroup();
-  platforms.create(800, 1225, "Plataforma").setScale(2).refreshBody();
+  platforms.create(800, 1250, "Plataforma").setScale(2).refreshBody();
 
 this.anims.create({
     key: "turn",
-    frames: this.anims.generateFrameNumbers("jugador", { frame: 4}),
+    frames: this.anims.generateFrameNumbers("jugador", {start: 4, end: 4}),
     frameRate: 20
   });
 
@@ -106,7 +106,15 @@ this.anims.create({
     null,
     this
   );
-    
+
+  this.physics.add.overlap(
+    this.enemiesGroup,
+    platforms,
+    this.destroyEnemies,
+    null,
+    this
+  );
+
 this.score = 0;
     this.scoreText = this.add.text(150, 40,  " " + this.score, {
       fontSize: "50px",
@@ -125,12 +133,12 @@ this.score = 0;
 
   update () {
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-220);
+      this.player.setVelocityX(-250);
       this.player.anims.play("left", true);
     }
     
     else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(220);
+      this.player.setVelocityX(250);
       this.player.anims.play("right", true);
     }
     
@@ -140,7 +148,8 @@ this.score = 0;
     }
 
     if (this.cursors.up.isDown) {
-      this.player.anims.play("up");
+      this.player.anims.play("up")
+      this.player.setVelocityY(20);
     }
     if (this.cursors.down.isDown) {
       this.player.anims.play("down");
@@ -165,7 +174,7 @@ this.score = 0;
     .setScale(0.6)
     console.log("Enemy is added", randomX, randomEnemies);
   }
-  deleteEnemies (platforms, enemies) {
+  destroyEnemies (platforms, enemies) {
     enemies.disableBody(true, true);
     
       }
