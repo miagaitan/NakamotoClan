@@ -11,8 +11,8 @@ init () {
     this.life= 100
     this.score = 0
     this.enemiesRecolected = {
-      [BARREL]: {count: 0, score: 10},
-      [GHOST]: {count: 0, score: 20},
+      [BARREL]: {count: 0, score: 20},
+      [GHOST]: {count: 0, score: 30},
       [GHOST2]: {count: 0, score: 30},
       [MINI]: {count: 0, score: 40},
       [PENGUIN]: {count: 0, score: 50}
@@ -88,7 +88,7 @@ this.anims.create({
   });
 
   this.time.addEvent({
-    delay: 5000,
+    delay: 3600,
     callback: this.addEnemy,
     callbackScope: this,
     loop: true,
@@ -108,14 +108,6 @@ this.anims.create({
     this
   );
 
-  // this.physics.add.overlap(
-  //   this.enemiesGroup,
-  //   platforms,
-  //   this.destroyEnemies,
-  //   null,
-  //   this
-  // );
-
 this.score = 0;
     this.scoreText = this.add.text(150, 40,  " " + this.score, {
       fontSize: "50px",
@@ -134,12 +126,12 @@ this.score = 0;
 
   update () {
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-270);
+      this.player.setVelocityX(-280);
       this.player.anims.play("left", true);
     }
     
     else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(270);
+      this.player.setVelocityX(280);
       this.player.anims.play("right", true);
     }
     
@@ -198,7 +190,7 @@ this.scene.start("GameOver");
 }
 
 this.scoreText.setText(this.score)
-if (this.score >=300) {
+if (this.score >=200) {
   this.scene.start("Victoria");
 }
 
