@@ -44,7 +44,7 @@ preload () {
   }
 create () {
     this.add.image(800, 600, "Fondo").setScale(2);
-    this.player = this.physics.add.sprite(400, 350, "jugador");
+    this.player = this.physics.add.sprite(300, 925, "jugador");
     this.player.setCollideWorldBounds(true);
     this.player.setScale(0.2);
     
@@ -98,6 +98,7 @@ this.anims.create({
 
   this.physics.add.collider(this.player, platforms);
   this.physics.add.collider(this.player, this.enemiesGroup);
+  this.physics.add.collider(this.enemiesGroup, platforms)
 
   this.physics.add.overlap(
     this.player,
@@ -133,12 +134,12 @@ this.score = 0;
 
   update () {
     if (this.cursors.left.isDown) {
-      this.player.setVelocityX(-250);
+      this.player.setVelocityX(-270);
       this.player.anims.play("left", true);
     }
     
     else if (this.cursors.right.isDown) {
-      this.player.setVelocityX(250);
+      this.player.setVelocityX(270);
       this.player.anims.play("right", true);
     }
     
@@ -149,7 +150,6 @@ this.score = 0;
 
     if (this.cursors.up.isDown) {
       this.player.anims.play("up")
-      this.player.setVelocityY(20);
     }
     if (this.cursors.down.isDown) {
       this.player.anims.play("down");
