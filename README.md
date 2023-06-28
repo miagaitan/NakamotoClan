@@ -1,2 +1,2 @@
 # NakamotoClan
-https://miagaitan.github.io/NakamotoClan/fg
+https://miagaitan.github.io/NakamotoClan/
