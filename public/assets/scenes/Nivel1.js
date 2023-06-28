@@ -34,8 +34,8 @@ preload () {
       frameHeight: 1843,
     });
     this.load.spritesheet("jugadorup", "./public/assets/images/spriteup.png", {
-      frameWidth: 2094,
-      frameHeight: 1741,
+      frameWidth: 999,
+      frameHeight: 1843,
     });
     this.load.spritesheet("jugadordown", "./public/assets/images/spritedown.png", {
       frameWidth: 919,
@@ -98,7 +98,7 @@ this.anims.create({
 
   this.physics.add.collider(this.player, platforms);
   this.physics.add.collider(this.player, this.enemiesGroup);
-  this.physics.add.collider(this.enemiesGroup, platforms)
+  this.physics.add.overlap(this.enemiesGroup, platforms)
 
   this.physics.add.overlap(
     this.player,
@@ -108,13 +108,13 @@ this.anims.create({
     this
   );
 
-  this.physics.add.overlap(
-    this.enemiesGroup,
-    platforms,
-    this.destroyEnemies,
-    null,
-    this
-  );
+  // this.physics.add.overlap(
+  //   this.enemiesGroup,
+  //   platforms,
+  //   this.destroyEnemies,
+  //   null,
+  //   this
+  // );
 
 this.score = 0;
     this.scoreText = this.add.text(150, 40,  " " + this.score, {
