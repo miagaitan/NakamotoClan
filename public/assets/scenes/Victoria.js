@@ -18,7 +18,6 @@ create (){
     this.add.image(400, 1100, "Menu").setScale(2).setInteractive()
     .on("pointerdown", () => this.scene.start("Menu"));
     this.add.image(400, 980, "Niveles").setScale(1).setInteractive()
-    .on("pointerdown", () => this.scene.start("Niveles", { Nivel1P}
-    ));
+    .on("pointerdown", () => this.scene.start("Niveles"));
 }
 }
