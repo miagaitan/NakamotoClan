@@ -20,7 +20,7 @@ export default class Niveles extends Phaser.Scene {
       this.add.image(700, 700, "Boton2").setScale(2).setInteractive()
       .on("pointerdown", () => this.scene.start("Nivel2"));
       this.add.image(1150, 575, "Boton3").setScale(2).setInteractive()
-      .on
+      .on("pointerdown", () => this.scene.start("Nivel3"));
        
 }
 }
