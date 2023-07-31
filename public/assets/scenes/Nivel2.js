@@ -100,7 +100,7 @@ this.anims.create({
   });
 
   this.time.addEvent({
-    delay: 4000,
+    delay: 4500,
     callback: this.addStar,
     callbackScope: this,
     loop: true,
@@ -206,7 +206,7 @@ addStar () {
     x: 1800,
     flip: false,
     yoyo: false,
-    duration: 3000,
+    duration: 3600,
     ease: "Linear", 
     // onComplete: () => {
     //   this.star.destroy();
