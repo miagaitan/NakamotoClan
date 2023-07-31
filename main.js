@@ -9,6 +9,7 @@ import Nivel2 from "./public/assets/scenes/Nivel2.js"
 import Nivel3 from "./public/assets/scenes/Nivel3.js"
 import GameOver from "./public/assets/scenes/GameOver.js"
 import Victoria from "./public/assets/scenes/Victoria.js"
+import VictoriaFinal from "./public/assets/scenes/VictoriaFinal.js"
 
 const config = {
     type: Phaser.AUTO,
@@ -34,7 +35,7 @@ const config = {
       },
     },
    
-    scene: [Menu, Controles, Creditos, Mercado, Niveles, Nivel1, Nivel2, Nivel3, Final, GameOver, Victoria],
+    scene: [Menu, Controles, Creditos, Mercado, Niveles, Nivel1, Nivel2, Nivel3, Final, GameOver, Victoria, VictoriaFinal],
   };
   
   // Create a new Phaser game instance

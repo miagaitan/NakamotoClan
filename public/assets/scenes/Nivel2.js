@@ -13,7 +13,7 @@ init () {
     this.life= 100
     this.score = 0
     this.enemiesRecolected = {
-      [STAR]: {count: 0, score: 15},
+      [STAR]: {count: 0, score: 0},
       [GHOST2]: {count: 0, score: 15},
       [MINI]: {count: 0, score: 30},
       [PENGUIN]: {count: 0, score: 30}
@@ -238,7 +238,17 @@ addStar () {
 
     this.lifeText.setText(this.life);
 
- }
+ 
+
+ if (this.life <= 0) {
+this.scene.start("GameOver");
+}
+
+this.scoreText.setText(this.score)
+if (this.score >=200) {
+  this.scene.start("Victoria");
+
+}}
 
  collectStar(player, star, life) {
   if (this.cursors.down.isDown) {
@@ -253,16 +263,7 @@ addStar () {
   this.lifeText.setText(this.life);
 
   
-if (this.life <= 0) {
-this.scene.start("GameOver");
-}
 
-this.scoreText.setText(this.score)
-if (this.score >=200) {
-  this.scene.start("Victoria");
-
-}
 
 }
 }
-

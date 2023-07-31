@@ -1,5 +1,8 @@
-import { ENEMIES } from "../scripts/utils.js"
-const { BARREL, GHOST, GHOST2, MINI, PENGUIN } = ENEMIES
+import { ENEMIESX } from "../scripts/utils2.js"
+const { GHOST2, PENGUIN, MINI } = ENEMIESX
+import { ENEMIESY } from "../scripts/utils2.js"
+const {STAR} = ENEMIESY
+
 
 export default class Nivel3 extends Phaser.Scene {
     constructor() {
@@ -19,7 +22,7 @@ export default class Nivel3 extends Phaser.Scene {
       console.log(this.enemiesRecolected);
     }
   preload () {
-      this.load.image("Fondo2", "./public/assets/images/fondo2.png");
+      this.load.image("Fondo2", "./public/assets/images/fondo3.png");
       this.load.image("Plataforma", "./public/assets/images/plataforma.png");
       this.load.image(STAR, "./public/assets/images/Star.png");
       this.load.image(GHOST2, "./public/assets/images/ghost2.png");
@@ -235,31 +238,33 @@ export default class Nivel3 extends Phaser.Scene {
       }
   
       this.lifeText.setText(this.life);
-  
-   }
-  
-   collectStar(player, star, life) {
-    if (this.cursors.down.isDown) {
-    star.disableBody(true,true);
-  }
-    else {
-      star.disableBody(true, true); 
-      this.life = this.life - 25 ; 
-    this.lifeText.setText(` ${this.life.toString()}`);
-    }
-  
-    this.lifeText.setText(this.life);
-  
-    
-  if (this.life <= 0) {
-  this.scene.start("GameOver");
-  }
-  
-this.scoreText.setText(this.score)
-if (this.score >=200) {
-  this.scene.start("VictoriaFinal");
 
-}
+ 
 
-}
-}
+      if (this.life <= 0) {
+     this.scene.start("GameOver");
+     }
+     
+     this.scoreText.setText(this.score)
+     if (this.score >=100) {
+       this.scene.start("VictoriaFinal");
+     
+     }}
+     
+      collectStar(player, star, life) {
+       if (this.cursors.down.isDown) {
+       star.disableBody(true,true);
+     }
+       else {
+         star.disableBody(true, true); 
+         this.life = this.life - 25 ; 
+       this.lifeText.setText(` ${this.life.toString()}`);
+       }
+     
+       this.lifeText.setText(this.life);
+     
+       
+     
+     
+     }
+     }
