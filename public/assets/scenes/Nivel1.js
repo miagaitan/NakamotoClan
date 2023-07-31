@@ -172,8 +172,8 @@ this.score = 0;
     if (this.cursors.up.isDown) {
     enemies.disableBody(true,true);
 
-    const enemyName = enemies.texture.key
-    const scoreNow = this.enemiesRecolected[enemyName].score;
+    const enemiesName = enemies.texture.key
+    const scoreNow = this.enemiesRecolected[enemiesName].score;
     this.score += scoreNow;
     this.scoreText.setText(` : ${this.score.toString()}`); }
     else {
