@@ -229,7 +229,7 @@ addStar () {
     const enemyName = enemies.texture.key
     const scoreNow = this.enemiesRecolected[enemyName].score;
     this.score += scoreNow;
-    this.scoreText.setText(` : ${this.score.toString()}`); }
+    this.scoreText.setText(`${this.score.toString()}`); }
     else {
       enemies.disableBody(true, true); 
       this.life = this.life - 25 ; 
@@ -247,7 +247,7 @@ addStar () {
   else {
     star.disableBody(true, true); 
     this.life = this.life - 25 ; 
-  this.lifeText.setText(` : ${this.life.toString()}`);
+  this.lifeText.setText(` ${this.life.toString()}`);
   }
 
   this.lifeText.setText(this.life);
