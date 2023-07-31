@@ -241,11 +241,11 @@ addStar () {
  
 
  if (this.life <= 0) {
-this.scene.start("GameOver");
+this.scene.start("GameOver2");
 }
 
 this.scoreText.setText(this.score)
-if (this.score >=200) {
+if (this.score >=300) {
   this.scene.start("Victoria");
 
 }}
@@ -263,7 +263,9 @@ if (this.score >=200) {
   this.lifeText.setText(this.life);
 
   
-
+  if (this.life <= 0) {
+    this.scene.start("GameOver2");
+    }
 
 }
 }

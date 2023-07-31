@@ -13,7 +13,7 @@ preload () {
 create (){
     this.add.image(800, 600, "victoriaf").setScale(2)
     this.add.image(1400, 1000, "flechafinal").setScale(0.6).setInteractive()
-    .on("pointerdown", () => this.scene.start("Niveles"));
+    .on("pointerdown", () => this.scene.start("Menu"));
 
     console.log("A")
 }

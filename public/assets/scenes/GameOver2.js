@@ -1,7 +1,7 @@
-export default class GameOver1 extends Phaser.Scene {
+export default class GameOver2 extends Phaser.Scene {
     constructor() {
 
-      super("GameOver1");
+      super("GameOver2");
     }
 
 
@@ -16,7 +16,6 @@ create (){
     this.add.image(400, 970, "VMenu").setScale(2).setInteractive()
     .on("pointerdown", () => this.scene.start("Menu"));
     this.add.image(400, 850, "Reintentar").setScale(1).setInteractive()
-    .on("pointerdown", () => this.scene.start("Nivel1"));
+    .on("pointerdown", () => this.scene.start("Nivel2"));
 }
 }
-

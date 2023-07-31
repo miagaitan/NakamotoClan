@@ -184,7 +184,7 @@ this.score = 0;
 
     this.lifeText.setText(this.life);
 if (this.life <= 0) {
-this.scene.start("GameOver");
+this.scene.start("GameOver1");
 }
 
 this.scoreText.setText(this.score)

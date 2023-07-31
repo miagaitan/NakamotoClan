@@ -1,5 +1,5 @@
 import { ENEMIESX } from "../scripts/utils2.js"
-const { GHOST2, PENGUIN, MINI } = ENEMIESX
+const { NINJA, GHOST2, PENGUIN, MINI } = ENEMIESX
 import { ENEMIESY } from "../scripts/utils2.js"
 const {STAR} = ENEMIESY
 
@@ -14,10 +14,11 @@ export default class Nivel3 extends Phaser.Scene {
       this.life= 100
       this.score = 0
       this.enemiesRecolected = {
-        [STAR]: {count: 0, score: 15},
-        [GHOST2]: {count: 0, score: 15},
-        [MINI]: {count: 0, score: 30},
-        [PENGUIN]: {count: 0, score: 30}
+        [STAR]: {count: 0, score: 0},
+        [GHOST2]: {count: 0, score: 30},
+        [MINI]: {count: 0, score: 25},
+        [PENGUIN]: {count: 0, score: 25},
+        [NINJA]: {count: 0, score: 20},
       };
       console.log(this.enemiesRecolected);
     }
@@ -28,6 +29,7 @@ export default class Nivel3 extends Phaser.Scene {
       this.load.image(GHOST2, "./public/assets/images/ghost2.png");
       this.load.image(MINI, "./public/assets/images/Mini.png");
       this.load.image(PENGUIN, "./public/assets/images/penguin.png");
+      this.load.image(NINJA, "./public/assets/images/Ninja.png");
       this.load.image("corazon", "./public/assets/images/corazon.png");
       this.load.image("yen", "./public/assets/images/yen.png");
       this.load.spritesheet("jugador", "./public/assets/images/zhaosprite.png", {
@@ -94,14 +96,14 @@ export default class Nivel3 extends Phaser.Scene {
     });
   
     this.time.addEvent({
-      delay: 2400,
+      delay: 2000,
       callback: this.addEnemy,
       callbackScope: this,
       loop: true,
     });
   
     this.time.addEvent({
-      delay: 4000,
+      delay: 2500,
       callback: this.addStar,
       callbackScope: this,
       loop: true,
@@ -174,6 +176,7 @@ export default class Nivel3 extends Phaser.Scene {
   
     addEnemy () {
       const randomEnemies = Phaser.Math.RND.pick([
+       NINJA,
        GHOST2,
        MINI,
        PENGUIN,
@@ -207,7 +210,7 @@ export default class Nivel3 extends Phaser.Scene {
       x: 1800,
       flip: false,
       yoyo: false,
-      duration: 3000,
+      duration: 2000,
       ease: "Linear", 
       // onComplete: () => {
       //   this.star.destroy();
@@ -240,13 +243,13 @@ export default class Nivel3 extends Phaser.Scene {
       this.lifeText.setText(this.life);
 
  
-
       if (this.life <= 0) {
-     this.scene.start("GameOver");
-     }
+        this.scene.start("GameOver3");
+        }
+        
      
      this.scoreText.setText(this.score)
-     if (this.score >=100) {
+     if (this.score >=400) {
        this.scene.start("VictoriaFinal");
      
      }}
@@ -264,7 +267,10 @@ export default class Nivel3 extends Phaser.Scene {
        this.lifeText.setText(this.life);
      
        
-     
+       if (this.life <= 0) {
+        this.scene.start("GameOver3");
+        }
+        
      
      }
      }

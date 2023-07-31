@@ -1,5 +1,5 @@
 const ENEMIESX = {
-    MONSTER: "Monster",
+    NINJA: "Ninja",
     GHOST2: "Ghost2",
     PENGUIN: "Penguin",
     MINI: "Mini",
