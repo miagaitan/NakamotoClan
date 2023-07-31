@@ -8,13 +8,14 @@ export default class GameOver extends Phaser.Scene {
 preload () {
     this.load.image("Gameover", "./public/assets/images/PGameover.png");
     this.load.image("Reintentar", "./public/assets/images/Reintentar.png");
+    this.load.image("VMenu", "./public/assets/images/Menu.png");
 }
 
 create (){
     this.add.image(800, 600, "Gameover").setScale(1)
-    this.add.image(400, 1100, "Menu").setScale(2).setInteractive()
+    this.add.image(400, 970, "VMenu").setScale(2).setInteractive()
     .on("pointerdown", () => this.scene.start("Menu"));
-    this.add.image(400, 980, "Reintentar").setScale(1).setInteractive()
+    this.add.image(400, 800, "Reintentar").setScale(1).setInteractive()
     .on("pointerdown", () => this.scene.start("Nivel1"));
 }
 }

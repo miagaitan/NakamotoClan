@@ -15,7 +15,6 @@ init () {
       [GHOST]: {count: 0, score: 30},
       [GHOST2]: {count: 0, score: 30},
       [MINI]: {count: 0, score: 40},
-      [PENGUIN]: {count: 0, score: 50}
     };
     console.log(this.enemiesRecolected);
   }
@@ -26,7 +25,6 @@ preload () {
     this.load.image(GHOST, "./public/assets/images/Ghost.png");
     this.load.image(GHOST2, "./public/assets/images/Ghost2.png");
     this.load.image(MINI, "./public/assets/images/Mini.png");
-    this.load.image(PENGUIN, "./public/assets/images/Penguin.png");
     this.load.image("corazon", "./public/assets/images/corazon.png");
     this.load.image("yen", "./public/assets/images/yen.png");
     this.load.spritesheet("jugador", "./public/assets/images/zhaosprite.png", {
@@ -154,7 +152,7 @@ this.score = 0;
      GHOST,
      GHOST2,
      MINI,
-     PENGUIN,
+
     ]);
 
     

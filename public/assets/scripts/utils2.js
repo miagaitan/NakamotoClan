@@ -1,12 +1,20 @@
-const ENEMIES = {
-    GHOST: "Ghost",
+const ENEMIESX = {
+    MONSTER: "Monster",
     GHOST2: "Ghost2",
-    BARREL: "Barrel",
+    PENGUIN: "Penguin",
     MINI: "Mini",
 }
 
 export {
-    ENEMIES,
+    ENEMIESX,
+}
+
+const ENEMIESY = {
+    STAR: "Star",
+}
+
+export {
+    ENEMIESY,
 }
 
 const POINTS_PERCENTAGE = "value";

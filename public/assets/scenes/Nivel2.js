@@ -1,5 +1,7 @@
-import { ENEMIES } from "../scripts/utils.js"
-const { BARREL, GHOST, GHOST2, MINI, PENGUIN } = ENEMIES
+import { ENEMIESX } from "../scripts/utils2.js"
+const { MONSTER, GHOST2, PENGUIN, MINI } = ENEMIESX
+import { ENEMIESY } from "../scripts/utils2.js"
+const {STAR} = ENEMIESY
 
 export default class Nivel2 extends Phaser.Scene {
     constructor() {
@@ -11,19 +13,19 @@ init () {
     this.life= 100
     this.score = 0
     this.enemiesRecolected = {
-      [BARREL]: {count: 0, score: 20},
-      [GHOST]: {count: 0, score: 30},
-      [GHOST2]: {count: 0, score: 30},
-      [MINI]: {count: 0, score: 40},
-      [PENGUIN]: {count: 0, score: 50}
+      [STAR]: {count: 0, score: 15},
+      [MONSTER]: {count: 0, score: 25},
+      [GHOST2]: {count: 0, score: 15},
+      [MINI]: {count: 0, score: 30},
+      [PENGUIN]: {count: 0, score: 30}
     };
     console.log(this.enemiesRecolected);
   }
 preload () {
-    this.load.image("Fondo", "./public/assets/images/fondo.png");
+    this.load.image("Fondo2", "./public/assets/images/fondo2.png");
     this.load.image("Plataforma", "./public/assets/images/plataforma.png");
-    this.load.image(BARREL, "./public/assets/images/Barrel.png");
-    this.load.image(GHOST, "./public/assets/images/Ghost.png");
+    this.load.image(MONSTER, "./public/assets/images/Monster.png");
+    this.load.image(STAR, "./public/assets/images/Star.png");
     this.load.image(GHOST2, "./public/assets/images/Ghost2.png");
     this.load.image(MINI, "./public/assets/images/Mini.png");
     this.load.image(PENGUIN, "./public/assets/images/Penguin.png");
@@ -43,7 +45,7 @@ preload () {
     });
   }
 create () {
-    this.add.image(800, 600, "Fondo").setScale(2);
+    this.add.image(800, 600, "Fondo2").setScale(2);
     this.player = this.physics.add.sprite(300, 925, "jugador");
     this.player.setCollideWorldBounds(true);
     this.player.setScale(0.2);
@@ -88,7 +90,7 @@ this.anims.create({
   });
 
   this.time.addEvent({
-    delay: 3600,
+    delay: 2400,
     callback: this.addEnemy,
     callbackScope: this,
     loop: true,
@@ -150,8 +152,7 @@ this.score = 0;
 
   addEnemy () {
     const randomEnemies = Phaser.Math.RND.pick([
-     BARREL, 
-     GHOST,
+     MONSTER,
      GHOST2,
      MINI,
      PENGUIN,
@@ -164,8 +165,21 @@ this.score = 0;
     this.enemiesGroup.create(randomX, 0, randomEnemies)
     .setBounce(0)
     .setScale(0.6)
-    console.log("Enemy is added", randomX, randomEnemies);
+    console.log("EnemyX is added", randomX, randomEnemies);
   }
+    
+    // const randomEnemiesY = Phaser.Math.RND.pick([
+    //     STAR,
+    //   ]);
+  
+    //   const randomY = Phaser.Math.RND.between (200, 500);
+  
+    //   this.enemiesGroup.create(0, randomY, randomEnemiesY)
+    //   .setBounce(0)
+    //   .setScale(0.8)
+    //   console.log("EnemyY is added", randomY, randomEnemiesY);
+    // }
+
   destroyEnemies (platforms, enemies) {
     enemies.disableBody(true, true);
     
