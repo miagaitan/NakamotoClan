@@ -1,5 +1,5 @@
 import { ENEMIESX } from "../scripts/utils2.js"
-const { MONSTER, GHOST2, PENGUIN, MINI } = ENEMIESX
+const { GHOST2, PENGUIN, MINI } = ENEMIESX
 import { ENEMIESY } from "../scripts/utils2.js"
 const {STAR} = ENEMIESY
 
@@ -14,7 +14,6 @@ init () {
     this.score = 0
     this.enemiesRecolected = {
       [STAR]: {count: 0, score: 15},
-      [MONSTER]: {count: 0, score: 25},
       [GHOST2]: {count: 0, score: 15},
       [MINI]: {count: 0, score: 30},
       [PENGUIN]: {count: 0, score: 30}
@@ -24,7 +23,6 @@ init () {
 preload () {
     this.load.image("Fondo2", "./public/assets/images/fondo2.png");
     this.load.image("Plataforma", "./public/assets/images/plataforma.png");
-    this.load.image(MONSTER, "./public/assets/images/Monster.png");
     this.load.image(STAR, "./public/assets/images/Star.png");
     this.load.image(GHOST2, "./public/assets/images/Ghost2.png");
     this.load.image(MINI, "./public/assets/images/Mini.png");
@@ -52,6 +50,11 @@ create () {
     
   this.add.image(1390, 63, "corazon")
   this.add.image(120, 63, "yen")
+
+  this.star = this.physics.add.group({
+    immovable: true,
+    allowGravity: false,
+  });
 
   this.enemiesGroup = this.physics.add.group();
   let platforms = this.physics.add.staticGroup();
@@ -96,16 +99,31 @@ this.anims.create({
     loop: true,
   });
 
+  this.time.addEvent({
+    delay: 4000,
+    callback: this.addStar,
+    callbackScope: this,
+    loop: true,
+  });
+
   this.cursors = this.input.keyboard.createCursorKeys();
 
   this.physics.add.collider(this.player, platforms);
   this.physics.add.collider(this.player, this.enemiesGroup);
-  this.physics.add.overlap(this.enemiesGroup, platforms)
+  this.physics.add.overlap(this.player, this.star);
+  this.physics.add.overlap(this.enemiesGroup, platforms);
 
   this.physics.add.overlap(
     this.player,
     this.enemiesGroup,
     this.collectEnemies,
+    null,
+    this
+  );
+  this.physics.add.collider(
+    this.player,
+    this.star,
+    this.collectStar,
     null,
     this
   );
@@ -123,8 +141,11 @@ this.score = 0;
       fontStyle: "bold", 
       fill: "#ffffff",
     });
+   
     
-  }
+    
+      }
+      
 
   update () {
     if (this.cursors.left.isDown) {
@@ -152,7 +173,6 @@ this.score = 0;
 
   addEnemy () {
     const randomEnemies = Phaser.Math.RND.pick([
-     MONSTER,
      GHOST2,
      MINI,
      PENGUIN,
@@ -166,25 +186,43 @@ this.score = 0;
     .setBounce(0)
     .setScale(0.6)
     console.log("EnemyX is added", randomX, randomEnemies);
-  }
     
     // const randomEnemiesY = Phaser.Math.RND.pick([
-    //     STAR,
-    //   ]);
+    //   STAR,
+    // ]);
+
+    // const randomY = Phaser.Math.RND.between (700, 900);
+
+    // this.enemiesGroup.create(0, randomY, randomEnemiesY)
+    // .setBounce(0)
+    // .setScale(0.8)
+    // console.log("EnemyY is added", randomY, randomEnemiesY);
+  }
   
-    //   const randomY = Phaser.Math.RND.between (200, 500);
-  
-    //   this.enemiesGroup.create(0, randomY, randomEnemiesY)
-    //   .setBounce(0)
-    //   .setScale(0.8)
-    //   console.log("EnemyY is added", randomY, randomEnemiesY);
-    // }
+addStar () {
+  const star = this.star.create(-100, 900, STAR)
+  this.tweens.add({
+    targets: star,
+    x: 1800,
+    flip: false,
+    yoyo: false,
+    duration: 3000,
+    ease: "Linear", 
+    // onComplete: () => {
+    //   this.star.destroy();
+    //   },
+      loop: true,
+      });
+
+}
+    
+   
 
   destroyEnemies (platforms, enemies) {
     enemies.disableBody(true, true);
     
       }
-  collectEnemies(player, enemies, life) {
+  collectEnemies(player, enemies, star, life) {
     if (this.cursors.up.isDown) {
     enemies.disableBody(true,true);
 
@@ -199,6 +237,22 @@ this.score = 0;
     }
 
     this.lifeText.setText(this.life);
+
+ }
+
+ collectStar(player, star, life) {
+  if (this.cursors.down.isDown) {
+  star.disableBody(true,true);
+}
+  else {
+    star.disableBody(true, true); 
+    this.life = this.life - 25 ; 
+  this.lifeText.setText(` : ${this.life.toString()}`);
+  }
+
+  this.lifeText.setText(this.life);
+
+  
 if (this.life <= 0) {
 this.scene.start("GameOver");
 }
@@ -211,3 +265,4 @@ if (this.score >=200) {
 
 }
 }
+
