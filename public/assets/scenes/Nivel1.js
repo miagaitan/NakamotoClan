@@ -21,9 +21,9 @@ init () {
 preload () {
     this.load.image("Fondo", "./public/assets/images/fondo.png");
     this.load.image("Plataforma", "./public/assets/images/plataforma.png");
-    this.load.image(BARREL, "./public/assets/images/Barrel.png");
-    this.load.image(GHOST, "./public/assets/images/Ghost.png");
-    this.load.image(GHOST2, "./public/assets/images/Ghost2.png");
+    this.load.image(BARREL, "./public/assets/images/barrel.png");
+    this.load.image(GHOST, "./public/assets/images/ghost.png");
+    this.load.image(GHOST2, "./public/assets/images/ghost2.png");
     this.load.image(MINI, "./public/assets/images/Mini.png");
     this.load.image("corazon", "./public/assets/images/corazon.png");
     this.load.image("yen", "./public/assets/images/yen.png");
@@ -173,7 +173,7 @@ this.score = 0;
     enemies.disableBody(true,true);
 
     const enemiesName = enemies.texture.key
-    // const scoreNow = this.enemiesRecolected[enemiesName].score;
+    const scoreNow = this.enemiesRecolected[enemiesName].score;
     this.score += scoreNow;
     this.scoreText.setText(` : ${this.score.toString()}`); }
     else {
