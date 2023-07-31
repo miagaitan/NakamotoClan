@@ -1,5 +1,5 @@
 import { ENEMIES } from "../scripts/utils.js"
-const { BARREL, GHOST, GHOST2, MINI, PENGUIN } = ENEMIES
+const { BARREL, GHOST, GHOST2, MINI } = ENEMIES
 
 export default class Nivel1 extends Phaser.Scene {
     constructor() {

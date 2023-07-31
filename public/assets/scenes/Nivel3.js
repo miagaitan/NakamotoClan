@@ -189,7 +189,7 @@ this.scene.start("GameOver");
 
 this.scoreText.setText(this.score)
 if (this.score >=200) {
-  this.scene.start("Victoria");
+  this.scene.start("VictoriaFinal");
 
 }
 
