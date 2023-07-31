@@ -24,9 +24,9 @@ preload () {
     this.load.image("Fondo2", "./public/assets/images/fondo2.png");
     this.load.image("Plataforma", "./public/assets/images/plataforma.png");
     this.load.image(STAR, "./public/assets/images/Star.png");
-    this.load.image(GHOST2, "./public/assets/images/Ghost2.png");
+    this.load.image(GHOST2, "./public/assets/images/ghost2.png");
     this.load.image(MINI, "./public/assets/images/Mini.png");
-    this.load.image(PENGUIN, "./public/assets/images/Penguin.png");
+    this.load.image(PENGUIN, "./public/assets/images/penguin.png");
     this.load.image("corazon", "./public/assets/images/corazon.png");
     this.load.image("yen", "./public/assets/images/yen.png");
     this.load.spritesheet("jugador", "./public/assets/images/zhaosprite.png", {
