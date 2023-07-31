@@ -23,7 +23,7 @@ export default class Nivel3 extends Phaser.Scene {
       console.log(this.enemiesRecolected);
     }
   preload () {
-      this.load.image("Fondo2", "./public/assets/images/fondo3.png");
+      this.load.image("Fondo3", "./public/assets/images/fondo3.png");
       this.load.image("Plataforma", "./public/assets/images/plataforma.png");
       this.load.image(STAR, "./public/assets/images/Star.png");
       this.load.image(GHOST2, "./public/assets/images/ghost2.png");
