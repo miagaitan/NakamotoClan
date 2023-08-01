@@ -14,7 +14,7 @@ export default class Nivel3 extends Phaser.Scene {
       this.life= 100
       this.score = 0
       this.enemiesRecolected = {
-        [STAR]: {count: 0, score: 0},
+        [STAR]: {count: 0, score: 40},
         [GHOST2]: {count: 0, score: 30},
         [MINI]: {count: 0, score: 25},
         [PENGUIN]: {count: 0, score: 25},
