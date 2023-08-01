@@ -1,7 +1,7 @@
 import { ENEMIESX } from "../scripts/utils2.js"
-const { NINJA, GHOST2, PENGUIN, MINI } = ENEMIESX
+const { STAR, GHOST2, PENGUIN, MINI } = ENEMIESX
 import { ENEMIESY } from "../scripts/utils2.js"
-const {STAR} = ENEMIESY
+const {NINJA} = ENEMIESY
 
 
 export default class Nivel3 extends Phaser.Scene {
@@ -46,15 +46,17 @@ export default class Nivel3 extends Phaser.Scene {
       });
     }
   create () {
-      this.add.image(800, 600, "Fondo2").setScale(2);
+      this.add.image(800, 600, "Fondo3").setScale(2);
       this.player = this.physics.add.sprite(300, 925, "jugador");
       this.player.setCollideWorldBounds(true);
       this.player.setScale(0.2);
       
     this.add.image(1390, 63, "corazon")
     this.add.image(120, 63, "yen")
+
+    this.cooldown = true
   
-    this.star = this.physics.add.group({
+    this.ninja = this.physics.add.group({
       immovable: true,
       allowGravity: false,
     });
@@ -104,7 +106,7 @@ export default class Nivel3 extends Phaser.Scene {
   
     this.time.addEvent({
       delay: 2500,
-      callback: this.addStar,
+      callback: this.addNinja,
       callbackScope: this,
       loop: true,
     });
@@ -113,7 +115,7 @@ export default class Nivel3 extends Phaser.Scene {
   
     this.physics.add.collider(this.player, platforms);
     this.physics.add.collider(this.player, this.enemiesGroup);
-    this.physics.add.overlap(this.player, this.star);
+    this.physics.add.overlap(this.player, this.ninja);
     this.physics.add.overlap(this.enemiesGroup, platforms);
   
     this.physics.add.overlap(
@@ -125,8 +127,8 @@ export default class Nivel3 extends Phaser.Scene {
     );
     this.physics.add.collider(
       this.player,
-      this.star,
-      this.collectStar,
+      this.ninja,
+      this.collectNinja,
       null,
       this
     );
@@ -169,6 +171,7 @@ export default class Nivel3 extends Phaser.Scene {
       if (this.cursors.up.isDown) {
         this.player.anims.play("up")
       }
+
       if (this.cursors.down.isDown) {
         this.player.anims.play("down");
       }
@@ -176,7 +179,7 @@ export default class Nivel3 extends Phaser.Scene {
   
     addEnemy () {
       const randomEnemies = Phaser.Math.RND.pick([
-       NINJA,
+       STAR,
        GHOST2,
        MINI,
        PENGUIN,
@@ -203,10 +206,10 @@ export default class Nivel3 extends Phaser.Scene {
       // console.log("EnemyY is added", randomY, randomEnemiesY);
     }
     
-  addStar () {
-    const star = this.star.create(-100, 900, STAR)
+  addNinja () {
+    const ninja = this.ninja.create(-100, 900, NINJA)
     this.tweens.add({
-      targets: star,
+      targets: ninja,
       x: 1800,
       flip: false,
       yoyo: false,
@@ -249,17 +252,17 @@ export default class Nivel3 extends Phaser.Scene {
         
      
      this.scoreText.setText(this.score)
-     if (this.score >=400) {
+     if (this.score >=350) {
        this.scene.start("VictoriaFinal");
      
      }}
      
-      collectStar(player, star, life) {
+      collectNinja(player, ninja, life) {
        if (this.cursors.down.isDown) {
-       star.disableBody(true,true);
+       ninja.disableBody(true,true);
      }
        else {
-         star.disableBody(true, true); 
+         ninja.disableBody(true, true); 
          this.life = this.life - 25 ; 
        this.lifeText.setText(` ${this.life.toString()}`);
        }

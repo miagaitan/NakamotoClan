@@ -1,7 +1,7 @@
 import { ENEMIESX } from "../scripts/utils2.js"
 const { GHOST2, PENGUIN, MINI } = ENEMIESX
 import { ENEMIESY } from "../scripts/utils2.js"
-const {STAR} = ENEMIESY
+const {NINJA} = ENEMIESY
 
 export default class Nivel2 extends Phaser.Scene {
     constructor() {
@@ -13,7 +13,6 @@ init () {
     this.life= 100
     this.score = 0
     this.enemiesRecolected = {
-      [STAR]: {count: 0, score: 0},
       [GHOST2]: {count: 0, score: 15},
       [MINI]: {count: 0, score: 30},
       [PENGUIN]: {count: 0, score: 30}
@@ -23,7 +22,7 @@ init () {
 preload () {
     this.load.image("Fondo2", "./public/assets/images/fondo2.png");
     this.load.image("Plataforma", "./public/assets/images/plataforma.png");
-    this.load.image(STAR, "./public/assets/images/Star.png");
+    this.load.image(NINJA, "./public/assets/images/Ninja.png");
     this.load.image(GHOST2, "./public/assets/images/ghost2.png");
     this.load.image(MINI, "./public/assets/images/Mini.png");
     this.load.image(PENGUIN, "./public/assets/images/penguin.png");
@@ -51,7 +50,7 @@ create () {
   this.add.image(1390, 63, "corazon")
   this.add.image(120, 63, "yen")
 
-  this.star = this.physics.add.group({
+  this.ninja = this.physics.add.group({
     immovable: true,
     allowGravity: false,
   });
@@ -101,7 +100,7 @@ this.anims.create({
 
   this.time.addEvent({
     delay: 4500,
-    callback: this.addStar,
+    callback: this.addNinja,
     callbackScope: this,
     loop: true,
   });
@@ -110,7 +109,7 @@ this.anims.create({
 
   this.physics.add.collider(this.player, platforms);
   this.physics.add.collider(this.player, this.enemiesGroup);
-  this.physics.add.overlap(this.player, this.star);
+  this.physics.add.overlap(this.player, this.ninja);
   this.physics.add.overlap(this.enemiesGroup, platforms);
 
   this.physics.add.overlap(
@@ -122,8 +121,8 @@ this.anims.create({
   );
   this.physics.add.collider(
     this.player,
-    this.star,
-    this.collectStar,
+    this.ninja,
+    this.collectNinja,
     null,
     this
   );
@@ -199,10 +198,10 @@ this.score = 0;
     // console.log("EnemyY is added", randomY, randomEnemiesY);
   }
   
-addStar () {
-  const star = this.star.create(-100, 900, STAR)
+addNinja () {
+  const ninja = this.ninja.create(-100, 900, NINJA)
   this.tweens.add({
-    targets: star,
+    targets: ninja,
     x: 1800,
     flip: false,
     yoyo: false,
@@ -222,7 +221,7 @@ addStar () {
     enemies.disableBody(true, true);
     
       }
-  collectEnemies(player, enemies, star, life) {
+  collectEnemies(player, enemies, ninja, life) {
     if (this.cursors.up.isDown) {
     enemies.disableBody(true,true);
 
@@ -250,12 +249,12 @@ if (this.score >=300) {
 
 }}
 
- collectStar(player, star, life) {
+ collectNinja(player, ninja, life) {
   if (this.cursors.down.isDown) {
-  star.disableBody(true,true);
+  ninja.disableBody(true,true);
 }
   else {
-    star.disableBody(true, true); 
+    ninja.disableBody(true, true); 
     this.life = this.life - 25 ; 
   this.lifeText.setText(` ${this.life.toString()}`);
   }

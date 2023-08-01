@@ -1,5 +1,5 @@
 const ENEMIESX = {
-    NINJA: "Ninja",
+    STAR: "Star",
     GHOST2: "Ghost2",
     PENGUIN: "Penguin",
     MINI: "Mini",
@@ -10,7 +10,7 @@ export {
 }
 
 const ENEMIESY = {
-    STAR: "Star",
+    NINJA: "Ninja",
 }
 
 export {
